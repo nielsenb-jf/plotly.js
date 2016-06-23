@@ -309,3 +309,17 @@ exports.coerceFont = function(coerce, attr, dfltObj) {
 
     return out;
 };
+
+exports.validate = function(value, opts) {
+    var failed = {},
+        out = failed,
+        propMock = { set: function(v) { out = v; } };
+
+    // 'failed' just something mutable that won't be === anything else
+
+    if(opts.arrayOk && Array.isArray(value)) return true;
+
+    exports.valObjects[opts.valType].coerceFunction(value, propMock, failed, opts);
+
+    return out !== failed;
+};
