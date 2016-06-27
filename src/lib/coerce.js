@@ -164,19 +164,21 @@ exports.valObjects = {
     subplotid: {
         description: [
             'An id string of a subplot type (given by dflt), optionally',
-            'followed by an integer >1. e.g. if dflt=\'geo\', we can  have',
+            'followed by an integer >1. e.g. if dflt=\'geo\', we can have',
             '\'geo\', \'geo2\', \'geo3\', ...'
         ].join(' '),
-        requiredOpts: [],
+        requiredOpts: ['base'],
         otherOpts: ['dflt'],
-        coerceFunction: function(v, propOut, dflt) {
-            var dlen = dflt.length;
-            if(typeof v === 'string' && v.substr(0, dlen) === dflt &&
-                    idRegex.test(v.substr(dlen))) {
+        coerceFunction: function(v, propOut, dflt, opts) {
+            var base = opts.base,
+                blen = base.length;
+
+            if(v === base) propOut.set(v);
+            else if(typeof v !== 'string') propOut.set(dflt);
+            else if(v.substr(0, blen) === base && idRegex.test(v.substr(blen))) {
                 propOut.set(v);
-                return;
             }
-            propOut.set(dflt);
+            else propOut.set(dflt);
         }
     },
     flaglist: {

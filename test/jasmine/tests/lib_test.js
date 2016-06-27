@@ -630,11 +630,12 @@ describe('Test lib.js:', function() {
         });
 
         describe('subplotid valtype', function() {
-            var dflt = 'slice';
+            var base = 'slice';
             var idAttrs = {
                 pizza: {
                     valType: 'subplotid',
-                    dflt: dflt
+                    base: base,
+                    dflt: base
                 }
             };
 
@@ -664,7 +665,7 @@ describe('Test lib.js:', function() {
             badVals.forEach(function(badVal) {
                 it('should not allow "' + badVal + '"', function() {
                     expect(coerce({pizza: badVal}, {}, idAttrs, 'pizza'))
-                        .toEqual(dflt);
+                        .toEqual(base);
                 });
             });
         });
@@ -923,8 +924,8 @@ describe('Test lib.js:', function() {
         });
 
         it('should work for valType \'subplotid\' where', function() {
-            var shouldPass = ['sp', 'sp1', 'sp4'],
-                shouldFail = [{}, [], 'sp0', 'spee1', null, undefined];
+            var shouldPass = ['sp', 'sp4', 'sp10'],
+                shouldFail = [{}, [], 'sp1', 'sp0', 'spee1', null, undefined, true];
 
             // This fails because coerceFunction depends on dflt
             // having a length.
@@ -934,6 +935,7 @@ describe('Test lib.js:', function() {
 
             assert(shouldPass, shouldFail, {
                 valType: 'subplotid',
+                base: 'sp',
                 dflt: 'sp'
             });
         });

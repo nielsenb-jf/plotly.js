@@ -13,6 +13,7 @@ module.exports = {
     scene: {
         valType: 'subplotid',
         role: 'info',
+        base: 'scene',
         dflt: 'scene',
         description: [
             'Sets a reference between this trace\'s 3D coordinate system and',

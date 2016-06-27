@@ -32,6 +32,7 @@ exports.attributes = {
     subplot: {
         valType: 'subplotid',
         role: 'info',
+        base: 'mapbox',
         dflt: 'mapbox',
         description: [
             'Sets a reference between this trace\'s data coordinates and',

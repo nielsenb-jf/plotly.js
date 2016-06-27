@@ -13,6 +13,7 @@ module.exports = {
     xaxis: {
         valType: 'subplotid',
         role: 'info',
+        base: 'x',
         dflt: 'x',
         description: [
             'Sets a reference between this trace\'s x coordinates and',
@@ -25,6 +26,7 @@ module.exports = {
     yaxis: {
         valType: 'subplotid',
         role: 'info',
+        base: 'y',
         dflt: 'y',
         description: [
             'Sets a reference between this trace\'s y coordinates and',
