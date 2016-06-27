@@ -13,7 +13,6 @@ module.exports = {
     geo: {
         valType: 'subplotid',
         role: 'info',
-        base: 'geo',
         dflt: 'geo',
         description: [
             'Sets a reference between this trace\'s geospatial coordinates and',

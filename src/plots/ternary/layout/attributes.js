@@ -13,7 +13,6 @@ module.exports = {
     subplot: {
         valType: 'subplotid',
         role: 'info',
-        base: 'ternary',
         dflt: 'ternary',
         description: [
             'Sets a reference between this trace\'s data coordinates and',
