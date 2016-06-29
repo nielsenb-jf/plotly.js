@@ -50,6 +50,7 @@ exports.Annotations = require('./components/annotations');
 exports.Shapes = require('./components/shapes');
 exports.Legend = require('./components/legend');
 exports.Images = require('./components/images');
+exports.UpdateMenu = require('./components/updatemenu');
 exports.ModeBar = require('./components/modebar');
 
 exports.register = function register(_modules) {

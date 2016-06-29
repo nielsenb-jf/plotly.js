@@ -611,6 +611,7 @@ function relinkPrivateKeys(toLayout, fromLayout) {
 
     for(var i = 0; i < keys.length; ++i) {
         var k = keys[i];
+
         if(k.charAt(0) === '_' || typeof fromLayout[k] === 'function') {
             // if it already exists at this point, it's something
             // that we recreate each time around, so ignore it
@@ -785,7 +786,10 @@ plots.supplyLayoutModuleDefaults = function(layoutIn, layoutOut, fullData) {
 
     // TODO register these
     // Legend must come after traces (e.g. it depends on 'barmode')
-    var moduleLayoutDefaults = ['Fx', 'Annotations', 'Shapes', 'Legend', 'Images'];
+    var moduleLayoutDefaults = [
+        'Fx', 'Annotations', 'Shapes', 'Legend', 'Images', 'UpdateMenu'
+    ];
+
     for(i = 0; i < moduleLayoutDefaults.length; i++) {
         _module = moduleLayoutDefaults[i];
 
