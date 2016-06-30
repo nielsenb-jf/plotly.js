@@ -30,12 +30,8 @@ module.exports = function draw(gd) {
         .data(opts.visible ? [0] : []);
 
     updateMenu.enter().append('g')
-        .classed(constants.containerClassName, true);
-
-    updateMenu.style({
-        cursor: 'pointer',
-        'pointer-events': 'visible'
-    });
+        .classed(constants.containerClassName, true)
+        .style('cursor', 'pointer');
 
     updateMenu.exit().remove();
 
@@ -61,7 +57,8 @@ function drawHeader(updateMenu, gd, opts) {
 
     header.enter().append('g')
         .classed(constants.headerClassName, true)
-        .classed(constants.itemClassName, true);
+        .classed(constants.itemClassName, true)
+        .style('pointer-events', 'all');
 
     // grab index of button corresponding to header
     var headerIndex = getHeaderIndex(updateMenu),
@@ -83,7 +80,8 @@ function drawButtons(updateMenu, gd, opts) {
     buttons.enter().append('g')
         .classed(constants.buttonClassName, true)
         .classed(constants.itemClassName, true)
-        .attr('visibility', 'hidden');
+        .attr('opacity', '0')
+        .style('pointer-events', 'none');
 
     buttons.exit().remove();
 
@@ -187,22 +185,27 @@ function drawItemText(item, contOpts, itemOpts) {
 
 function updateDropFold(updateMenu) {
     var buttons = updateMenu.selectAll('g.' + constants.buttonClassName),
-        oldVisibility = buttons.attr('visibility'),
-        newVisibility;
+        oldVisibility = buttons.attr('opacity');
+
+    var newVisibility, newPointeEvents;
 
     switch(oldVisibility) {
-        case null:
-            newVisibility = 'hidden';
+        case '0':
+            newVisibility = '1';
+            newPointeEvents = 'all';
             break;
-        case 'hidden':
-            newVisibility = 'visible';
-            break;
-        case 'visible':
-            newVisibility = 'hidden';
+        case '1':
+            newVisibility = '0';
+            newPointeEvents = 'none';
             break;
     }
 
-    buttons.attr('visibility', newVisibility);
+    buttons.style('pointer-events', newPointeEvents);
+
+    // the default delay of 250ms looks good to me
+    buttons
+        .transition()
+        .attr('opacity', newVisibility);
 }
 
 function styleHover(button) {
