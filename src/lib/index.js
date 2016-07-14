@@ -404,7 +404,7 @@ lib.addStyleRule = function(targetDocument, selector, styleString) {
         styleSheet = style.sheet;
     }
 		else{
-			//Just grab the first style element to append to
+			// Just grab the first style element to append to
 			styleSheet = targetDocument.getElementsByTagName('style')[0].sheet;
 		}
 
