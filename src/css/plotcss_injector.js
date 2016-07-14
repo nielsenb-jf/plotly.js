@@ -16,14 +16,14 @@ module.exports = function injectStyles(targetDocument) {
 	var targetSelectors = getAllRuleSelectors(targetDocument);
 
 	for(var selector in plotcss) {
-			var fullSelector = selector.replace(/^,/,' ,')
-					.replace(/X/g, '.js-plotly-plot .plotly')
-					.replace(/Y/g, '.plotly-notifier');
+		var fullSelector = selector.replace(/^,/,' ,')
+			.replace(/X/g, '.js-plotly-plot .plotly')
+			.replace(/Y/g, '.plotly-notifier');
 
-			//Don't duplicate selectors
-			if(targetSelectors.indexOf(fullSelector) === -1) {
-				Plotly.Lib.addStyleRule(targetDocument, fullSelector, plotcss[selector]);
-			}
+		//Don't duplicate selectors
+		if(targetSelectors.indexOf(fullSelector) === -1) {
+			Plotly.Lib.addStyleRule(targetDocument, fullSelector, plotcss[selector]);
+		}
 	}
 }
 
