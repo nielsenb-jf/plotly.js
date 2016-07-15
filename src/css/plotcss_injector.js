@@ -17,19 +17,19 @@ module.exports = function injectStyles(gd) {
     // If the graph div has already been styled, bail
     if(gd._plotCSSLoaded) return;
 
-    var targetSelectors = getAllRuleSelectors(gd.ownerDocument);
+    var targetSelectors = getAllRuleSelectors(gd._document);
     var targetStyleSheet = null;
 
-    if(gd.ownerDocument.getElementsByTagName('style').length === 0) {
-        var style = gd.ownerDocument.createElement('style');
+    if(gd._document.getElementsByTagName('style').length === 0) {
+        var style = gd._document.createElement('style');
         // WebKit hack :(
-        style.appendChild(gd.ownerDocument.createTextNode(''));
-        gd.ownerDocument.head.appendChild(style);
+        style.appendChild(gd._document.createTextNode(''));
+        gd._document.head.appendChild(style);
         targetStyleSheet = style.sheet;
     }
     else{
         // Just grab the first style element to append to
-        targetStyleSheet = gd.ownerDocument.getElementsByTagName('style')[0].sheet;
+        targetStyleSheet = gd._document.getElementsByTagName('style')[0].sheet;
     }
 
     for(var selector in plotcss) {
