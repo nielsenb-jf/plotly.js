@@ -9,7 +9,7 @@
 
 'use strict';
 
-var Plotly = require('../plotly');
+var lib = require('../lib');
 var plotcss = require('../../build/plotcss');
 
 // Inject styling information into the document containing the graph div
@@ -27,13 +27,13 @@ module.exports = function injectStyles(gd) {
         gd._document.head.appendChild(style);
         targetStyleSheet = style.sheet;
     }
-    else{
+    else {
         // Just grab the first style element to append to
         targetStyleSheet = gd._document.getElementsByTagName('style')[0].sheet;
     }
 
     for(var selector in plotcss) {
-        var fullSelector = selector.replace(/^,/,' ,')
+        var fullSelector = selector.replace(/^,/, ' ,')
             .replace(/X/g, '.js-plotly-plot .plotly')
             .replace(/Y/g, '.plotly-notifier');
 
@@ -50,7 +50,7 @@ module.exports = function injectStyles(gd) {
     }
 
     gd._plotCSSLoaded = true;
-}
+};
 
 // Gets all the rules currently attached to the document
 function getAllRuleSelectors(sourceDocument) {
