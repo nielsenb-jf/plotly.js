@@ -7,8 +7,8 @@ var createGraphDiv = require('../assets/create_graph_div');
 var destroyGraphDiv = require('../assets/destroy_graph_div');
 
 describe('css injection', function() {
-    var helpers = require('../../../src/css/helpers');
-    var plotcss = require('../../../build/plotcss')
+    var helpers = require('@src/css/helpers');
+    var plotcss = require('@build/plotcss')
 
     // create a graph div in a child window
     function createGraphDivInChildWindow() {
