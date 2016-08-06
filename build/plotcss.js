@@ -46,6 +46,7 @@ var rules = {
     "X .select-outline": "fill:none;stroke-width:1;shape-rendering:crispEdges;",
     "X .select-outline-1": "stroke:white;",
     "X .select-outline-2": "stroke:black;stroke-dasharray:2px 2px;",
+    ".plotly-css-tester": "color:#0b170d;display:none;",
     Y: "font-family:'Open Sans';position:fixed;top:50px;right:20px;z-index:10000;font-size:10pt;max-width:180px;",
     "Y p": "margin:0;",
     "Y .notifier-note": "min-width:180px;max-width:250px;border:1px solid #fff;z-index:3000;margin:0;background-color:#8c97af;background-color:rgba(140,151,175,0.9);color:#fff;padding:10px;",

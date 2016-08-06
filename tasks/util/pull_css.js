@@ -13,7 +13,7 @@ module.exports = function pullCSS(data, pathOut) {
 
         // take off ".js-plotly-plot .plotly", which should be on every selector
         selectorList.split(/,\s*/).forEach(function(selector) {
-            if(!selector.match(/^([\.]js-plotly-plot [\.]plotly|[\.]plotly-notifier)/)) {
+            if(!selector.match(/^([\.]js-plotly-plot [\.]plotly|[\.]plotly-notifier|[\.]plotly-css-tester)/)) {
                 throw new Error('all plotlyjs-style selectors must start ' +
                     '.js-plotly-plot .plotly or .plotly-notifier\n' +
                     'found: ' + selectorList);

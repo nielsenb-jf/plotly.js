@@ -16,7 +16,7 @@ var plotcss = require('../../build/plotcss');
 exports.injectStyles = function injectStyles(gd) {
 
     // If the graph div has already been styled, bail
-    if(gd._document._plotCSSLoaded) return;
+    if(plotlyStylesAdded(gd)) return;
 
     var targetStyleSheet = null;
 
@@ -47,6 +47,58 @@ exports.injectStyles = function injectStyles(gd) {
 
     gd._document._plotCSSLoaded = true;
 };
+
+// Determines if the plotly styles are present in the graph div's parent
+// document. This is done by adding a tester div as a child of the graph
+// div, checking to see if it gets styled, and deleting it.
+function plotlyStylesAdded(gd) {
+    var parentWindow = gd._document.defaultView;
+
+    addStyleTester(gd);
+
+    // Find a style tester, and see if it's been styled
+    var testerDivs = gd.getElementsByClassName('plotly-css-tester');
+
+    for(var i = 0; i < testerDivs.length; i++) {
+        var testerDiv = testerDivs[i];
+
+        var testerColor = parentWindow.getComputedStyle(testerDiv, null).getPropertyValue('color');
+        var testerDisplay = parentWindow.getComputedStyle(testerDiv, null).getPropertyValue('display');
+
+        if(testerColor !== 'rgb(11, 23, 13)' && testerDisplay !== 'none') {
+            return finish(false); // Bail, unstyled div, must not have loaded the CSS
+        }
+    }
+
+    return finish(true); // If we got this far, we fell through, tester divs are styled
+
+    function finish(returnValue) {
+        deleteStyleTesters(gd);
+        return returnValue;
+    }
+}
+
+// Adds a hidden div to the graph div that we can use to see if plotly
+// CSS has been loaded
+function addStyleTester(gd) {
+    var testerDiv = gd._document.createElement('div');
+
+    // Add our tester class
+    testerDiv.className = 'plotly-css-tester';
+
+    // Append our tester
+    gd.appendChild(testerDiv);
+}
+
+// Deletes any CSS tester divs that are children of the graph div
+function deleteStyleTesters(gd) {
+    var testerDivs = gd.getElementsByClassName('plotly-css-tester');
+
+    // Loop and delete
+    while(testerDivs[0]) {
+        gd.removeChild(testerDivs[0]);
+    }
+}
 
 // expands a plotcss selector
 exports.buildFullSelector = function buildFullSelector(selector) {
