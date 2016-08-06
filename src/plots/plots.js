@@ -896,7 +896,6 @@ plots.purge = function(gd) {
 
     // styling
     delete gd._document;
-    delete gd._plotCSSLoaded;
 
     // data and layout
     delete gd.data;

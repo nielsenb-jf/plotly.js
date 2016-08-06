@@ -44,8 +44,6 @@ exports.injectStyles = function injectStyles(gd) {
         }
         else loggers.warn('injectStyles failed');
     }
-
-    gd._document._plotCSSLoaded = true;
 };
 
 // Determines if the plotly styles are present in the graph div's parent
