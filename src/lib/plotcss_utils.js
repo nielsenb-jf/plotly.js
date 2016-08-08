@@ -52,26 +52,21 @@ exports.injectStyles = function injectStyles(gd) {
 function plotlyStylesAdded(gd) {
     var parentWindow = gd._document.defaultView;
 
-    addStyleTester(gd);
+    var testerDiv = addStyleTester(gd);
 
-    // Find a style tester, and see if it's been styled
-    var testerDivs = gd.getElementsByClassName('plotly-css-tester');
+    // See if the style tester has been styled
+    var testerColor = parentWindow.getComputedStyle(testerDiv, null).getPropertyValue('color');
+    var testerDisplay = parentWindow.getComputedStyle(testerDiv, null).getPropertyValue('display');
 
-    for(var i = 0; i < testerDivs.length; i++) {
-        var testerDiv = testerDivs[i];
-
-        var testerColor = parentWindow.getComputedStyle(testerDiv, null).getPropertyValue('color');
-        var testerDisplay = parentWindow.getComputedStyle(testerDiv, null).getPropertyValue('display');
-
-        if(testerColor !== 'rgb(11, 23, 13)' && testerDisplay !== 'none') {
-            return finish(false); // Bail, unstyled div, must not have loaded the CSS
-        }
+    if(testerColor !== 'rgb(11, 23, 13)' && testerDisplay !== 'none') {
+        return finish(false); // Unstyled div, must not have loaded the CSS
+    }
+    else {
+        return finish(true); // Tester div is styled
     }
 
-    return finish(true); // If we got this far, we fell through, tester divs are styled
-
     function finish(returnValue) {
-        deleteStyleTesters(gd);
+        gd.removeChild(testerDiv); //Delete the tester div
         return returnValue;
     }
 }
@@ -86,16 +81,8 @@ function addStyleTester(gd) {
 
     // Append our tester
     gd.appendChild(testerDiv);
-}
 
-// Deletes any CSS tester divs that are children of the graph div
-function deleteStyleTesters(gd) {
-    var testerDivs = gd.getElementsByClassName('plotly-css-tester');
-
-    // Loop and delete
-    while(testerDivs[0]) {
-        gd.removeChild(testerDivs[0]);
-    }
+    return testerDiv;
 }
 
 // expands a plotcss selector
