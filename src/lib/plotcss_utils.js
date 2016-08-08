@@ -66,7 +66,7 @@ function plotlyStylesAdded(gd) {
     }
 
     function finish(returnValue) {
-        gd.removeChild(testerDiv); //Delete the tester div
+        gd.removeChild(testerDiv); // Delete the tester div
         return returnValue;
     }
 }
